@@ -1,5 +1,5 @@
 # holbertonschool-AirBnB_clone
-The first piece is to manipulate a powerful storage system. This storage engine will give us an abstraction between “My object” and “How they are stored and persisted”. This means: from your console code (the command interpreter itself) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
+This project is the first step towards building a full web application: the AirBnB clone. The first piece is to manipulate a powerful storage system. This storage engine will give us an abstraction between “My object” and “How they are stored and persisted”. This means: from your console code (the command interpreter itself) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
 This abstraction will also allow you to change the type of storage easily without updating all of your codebase.
 The console will be a tool to validate this storage engine. The console will consist of first creating our data model. The console will allow us to manage, meaning create, update, destroy, etc., objects via a command interpreter. This system will help store and persist objects to a JSON file.
 
@@ -78,3 +78,57 @@ last_name: string - empty string
 Update FileStorage to manage correctly serialization and deserialization of User.
 
 Update your command interpreter (console.py) to allow show, create, destroy, update and all used with User.
+
+The commands available for this command interpreter are:
+
+Name	     Description
+*create	     Creates a new instance of the class passed by argument.
+show	     Prints the string representation of an instance.
+*destroy     Deletes an instance that was already created.
+all	     Prints string representation of all instances or of all instances of a specified class.
+*update	     Updates an instance attribute if exists otherwise create it.
+help	     Show all commands or display information about a specific command.
+quit	     Exit the console.
+EOF	     Exit the console.
+
+Commands usage:
+
+Command	 Usage
+create	 create <class_name>
+show	 show <class_name> <object_id> ; <class_name>.show(<object_id>)()
+destroy	 destroy <class_name> <object_id ; <class_name>.destroy(<object_id>)()
+all	 all <class_name> ; <class_name>.all()
+update	 update <class_name> <object_id> <attribute name> “<attribute value>” ; <class name>.update(<object_id>, <attribute name>, <attribute value>) ; <class name>.update(<object_id>, <dictionary representation>)
+help	 help ; help <command_name>
+quit	 quit
+EOF	 EOF ; (ctrl + d)
+
+The following are a couple of examples of how to interact with the commmand console.
+Ex1: Using create, count and all commands
+
+solid@DESKTOP-6PPFSAT:~/H/AirBnB_clone$ ./console.py 
+(hbnb) all
+[]
+(hbnb) create Place
+492f60f3-ff1e-43c7-bb11-f8407b04dd59
+(hbnb) create BaseModel
+99f01e9a-99c0-42af-8c10-c35cadee1d8f
+(hbnb) BaseModel.count()
+1
+(hbnb) all
+["[Place] (492f60f3-ff1e-43c7-bb11-f8407b04dd59) {'id': '492f60f3-ff1e-43c7-bb11	-f8407b04dd59', 'created_at': datetime.datetime(2020, 7, 1, 11, 36, 24,		576486), 'updated_at': datetime.datetime(2020, 7, 1, 11, 36, 24, 576530)	}", "[BaseModel] (99f01e9a-99c0-42af-8c10-c35cadee1d8f) {'id': '99f01e9a	-99c0-42af-8c10-c35cadee1d8f', 'created_at': datetime.datetime(2020, 7,		1, 11, 36, 30, 773211), 'updated_at': datetime.datetime(2020, 7, 1, 11,		36, 30, 773236)}"]
+(hbnb)
+
+Example 2: Using basic update with an Id and show command
+(hbnb) update BaseModel 99f01e9a-99c0-42af-8c10-c35cadee1d8f first_name "Betty"
+(hbnb) show BaseModel 99f01e9a-99c0-42af-8c10-c35cadee1d8f
+[BaseModel] (99f01e9a-99c0-42af-8c10-c35cadee1d8f) {'id': '99f01e9a-99c0-42af-8c10-c35cadee1d8f', 'creat	ed_at': datetime.datetime(2020, 7, 1, 11, 36, 30, 773211), 'updated_at': datetime.datetime(2020,	 7, 1, 11, 36, 30, 773236), 'first_name': 'Betty'}
+(hbnb) Place.update("492f60f3-ff1e-43c7-bb11-f8407b04dd59", "first_name", "John")
+(hbnb) show Place 492f60f3-ff1e-43c7-bb11-f8407b04dd59
+[Place] (492f60f3-ff1e-43c7-bb11-f8407b04dd59) {'id': '492f60f3-ff1e-43c7-bb11-f8407b04dd59', 'created_a	t': datetime.datetime(2020, 7, 1, 11, 36, 24, 576486), 'updated_at': datetime.datetime(2020, 7,		1, 11, 36, 24, 576530), 'first_name': 'John'}
+
+Example 3: Using update with a dictionary
+(hbnb) BaseModel.update("99f01e9a-99c0-42af-8c10-c35cadee1d8f", {'first_name': "Petter", "age": 45})
+(hbnb) show BaseModel 99f01e9a-99c0-42af-8c10-c35cadee1d8f
+[BaseModel] (99f01e9a-99c0-42af-8c10-c35cadee1d8f) {'id': '99f01e9a-99c0-42af-8c10-c35cadee1d8f', 'creat	ed_at': datetime.datetime(2020, 7, 1, 11, 36, 30, 773211), 'updated_at': datetime.datetime(2020,	7, 1, 11, 36, 30, 773236), 'first_name': 'Petter', 'age': '45'}
+
